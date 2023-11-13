@@ -20,9 +20,9 @@
                 <div class="card">
                     <div class="card-header">
                         Login
-                    </div>
+                                            </div>
                     <div class="card-body">
-                        
+                        {{-- /// --}}
                         <form action="{{url('/login_info')}}" method="post">
                             @csrf <!-- Add CSRF token for Laravel -->
                             <div class="form-group">
