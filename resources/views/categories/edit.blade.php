@@ -14,39 +14,26 @@
 </head>
 
 <body>
- 
     <div class="container mt-5">
-        <h2>Category List</h2>
-    
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Category Name</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Example categories. Replace this with dynamic data from your Laravel application. -->
-                <tr>
-                    <td>1</td>
-                    <td>Category A</td>
-                    <td>
-                        <a href="/edit-category/1" class="btn btn-primary btn-sm">Edit</a>
-                        <a href="/delete-category/1" class="btn btn-danger btn-sm">Delete</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Category B</td>
-                    <td>
-                        <a href="/edit-category/2" class="btn btn-primary btn-sm">Edit</a>
-                        <a href="/delete-category/2" class="btn btn-danger btn-sm">Delete</a>
-                    </td>
-                </tr>
-                <!-- Add more rows for additional categories -->
-            </tbody>
-        </table>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        Edit Category
+                    </div>
+                    <div class="card-body">
+                        <form action="/store-category" method="post">
+                            @csrf <!-- Add CSRF token for Laravel -->
+                            <div class="form-group">
+                                <label for="categoryName">Category Name:</label>
+                                <input type="text" class="form-control" id="categoryName" name="categoryName" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary my-2">Update</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
     integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">

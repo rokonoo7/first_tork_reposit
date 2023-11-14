@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Laravel; 
+use App\Models\Category;
 class democontroler extends Controller
 {
 
@@ -14,20 +15,21 @@ class democontroler extends Controller
         
   }
   public  function index(){
-        $url=url('/register');
-        $title="Form Registration";
-        $data=compact('url','title');
-        return view('form')->with($data);
+        $categories=Category::all();
+        $data=compact('categories');
+        return view('layouts/insert_form')->with($data);
     }
 
     public function register(Request $request)
     {
+      
           $request->validate(
              [
               'username'=>'required',
               'email'=>'required|email|unique:laravel,email',
               'password'=>'required|confirmed',
               'password_confirmation'=>'required',
+              'category_id'=>'required',
                'gender' =>'required' 
              ]
              );
@@ -36,6 +38,7 @@ class democontroler extends Controller
          $laravel->username=$request['username'];
          $laravel->email=$request['email'];
          $laravel->password=md5($request['password']);
+         $laravel->category_id=$request['category_id'];
          $laravel->gender=$request['gender'];
          $laravel->save();
          return redirect('/form/view');

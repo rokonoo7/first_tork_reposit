@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\Category;
 class CategoryController extends Controller
 {
     /**
@@ -13,7 +13,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+       
+        $my_category_data=Category::all();
+        $data=compact('my_category_data');
+        return view('categories/index')->with($data);
     }
 
     /**
@@ -33,8 +36,18 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
+    {    
+         $request->validate(
+               [
+                'categoryName'=>'required|unique:categories,name'
+               ]
+         );
+
+         
+        $category= new Category; 
+        $category->name=$request['categoryName'];
+        $category->save(); 
+        return redirect(route('category_index'));
     }
 
     /**
@@ -54,10 +67,10 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit()
     {
-        return view('category/edit');
-        ///
+        return view('categories/edit') ;
+        
     }
 
     /**

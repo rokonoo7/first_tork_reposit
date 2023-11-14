@@ -29,8 +29,11 @@ route::get('/laravel',function(){
 route::get('/login',function(){
       return view('layouts.login');
 });
-Route::get('/category/edit', [CategoryController::class, 'edit']);
+Route::get('/category/index', [CategoryController::class, 'index'])->name('category_index');
 Route::get('/category/form', [CategoryController::class, 'create']);
+Route::get('/category/edit', [CategoryController::class, 'edit'])->name('edit_category');
+Route::post('/category/store', [CategoryController::class, 'store']);
+Route::post('/category/index', [CategoryController::class, '']);
 Route::post('/login_info', [democontroler::class, 'session_work']);
 Route::get('/ajax_crud',[AjaxCrudController::class,'ajax_crud'])->name('ajax_crud');
 Route::get('/ajax_crud/read',[AjaxCrudController::class,'read'])->name('ajax_crud.read');

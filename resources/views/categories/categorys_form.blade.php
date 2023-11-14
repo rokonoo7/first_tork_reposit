@@ -22,12 +22,15 @@
                         Add Category
                     </div>
                     <div class="card-body">
-                        <form action="/store-category" method="post">
+                        <form action="{{url('category/store')}}" method="post">
                             @csrf <!-- Add CSRF token for Laravel -->
                             <div class="form-group">
                                 <label for="categoryName">Category Name:</label>
                                 <input type="text" class="form-control" id="categoryName" name="categoryName" required>
                             </div>
+                             <span class="text-danger"> @error('categoryName')
+                                 {{$message}}
+                             @enderror</span>
                             <button type="submit" class="btn btn-primary my-2">Submit</button>
                         </form>
                     </div>

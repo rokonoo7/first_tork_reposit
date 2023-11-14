@@ -25,6 +25,7 @@
              
               <th>Email</th>
               <th>Gender</th>
+              <th>Category name</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -39,6 +40,11 @@
                 <td>{{$item->username}}</td>
                 <td>{{$item->email}}</td>
                 <td>{{$item->gender}}</td>
+                <td>
+                  @if($item->category!='')
+                  {{$item->category->name}}
+                  @endif
+                </td>
                 <td>
                  <a href="{{url('/form/edit/')}}/{{$item->id}}"> <button type="button" class="btn btn-primary btn-sm">Edit</button></a>
                   <a href="{{url('/form/delete/')}}/{{$item->id}}"><button type="button" class="btn btn-danger btn-sm">Delete</button></a>
