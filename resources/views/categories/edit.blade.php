@@ -14,6 +14,7 @@
 </head>
 
 <body>
+    
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-6">
@@ -22,11 +23,14 @@
                         Edit Category
                     </div>
                     <div class="card-body">
-                        <form action="/store-category" method="post">
+                        <form action="{{route('update_category',$edit->id)}}" method="post">
                             @csrf <!-- Add CSRF token for Laravel -->
                             <div class="form-group">
                                 <label for="categoryName">Category Name:</label>
-                                <input type="text" class="form-control" id="categoryName" name="categoryName" required>
+                                <input type="text" class="form-control" value="{{$edit->name}}" id="categoryName" name="categoryName" required>
+                                <span class="text-danger"> @error('categoryName')
+                                    {{$message}}
+                                @enderror</span>
                             </div>
                             <button type="submit" class="btn btn-primary my-2">Update</button>
                         </form>

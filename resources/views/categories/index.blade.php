@@ -23,6 +23,7 @@
                 <tr>
                     <th>ID</th>
                     <th>Category Name</th>
+                    <th>Active</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -32,9 +33,10 @@
                 <tr>
                     <td>{{$item->id}}</td>
                     <td>{{$item->name}}</td>
+                    <td>  <input class="form-check-input" type="checkbox" value="" @if($item->is_active==1) checked @endif id="checkboxExample"></td>
                     <td>
-                        <a href="/edit-category/1" class="btn btn-primary btn-sm">Edit</a>
-                        <a href="/delete-category/1" class="btn btn-danger btn-sm">Delete</a>
+                        <a href="{{route('edit2_category',$item->id)}}" class="btn btn-primary btn-sm">Edit</a>
+                        <a href="{{route('delete_category',$item->id)}}" class="btn btn-danger btn-sm">Delete</a>
                     </td>
                 </tr>
                 @endforeach

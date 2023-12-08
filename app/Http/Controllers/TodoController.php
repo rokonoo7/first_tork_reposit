@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Category;
-class CategoryController extends Controller
+ use App\Models\Todo;
+class TodoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,10 +13,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-       
-        $my_category_data=Category::all();
-        $data=compact('my_category_data');
-        return view('categories/index')->with($data);
+        $todo=Todo::all()->reverse();
+        return view("todo.index",compact('todo'));
     }
 
     /**
@@ -26,7 +24,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-       return view('categories/categorys_form') ; 
+        return view('todo.create');
     }
 
     /**
@@ -36,19 +34,24 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {    
-         $request->validate(
-               [
-                'categoryName'=>'required|unique:categories,name'
-               ]
-         );
+    {
+        $todo=explode(",", $request->todos) ;
+        $todo_table=new Todo;
+         foreach ($todo as $key => $row) {
+            $todo_table=new Todo;
+            $todo_table->basic=$row;
+            $todo_table->save();
+         }
 
-         
-        $category= new Category; 
-        $category->name=$request['categoryName'];
-        $category->is_active=1; 
-        $category->save(); 
-        return redirect(route('category_index'));
+
+          return response()->json([
+
+            'message'=>'work is done',
+            'result'=>true
+          ]);
+
+
+
     }
 
     /**
@@ -69,11 +72,9 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {      $edit= Category::find($id);
-         
-          $data=compact('edit');
-         return view('categories/edit')->with($data) ;
-        
+    {
+        $todo=Todo::find($id);
+        return view('todo.edit',compact('todo'));
     }
 
     /**
@@ -84,17 +85,11 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {     $request->validate(
-
-        [
-            'categoryName'=>'required|unique:categories,name'
-        ]
-    );
-
-        $update=Category::find($id);
-        $update->name=$request['categoryName'];
-         $update->save(); 
-         return redirect(url('/category/index')); 
+    {
+        $todo=Todo::find($id);
+        $todo->basic=$request->basic;
+        $todo->save();
+         return redirect(route('todo.index'));
     }
 
     /**
@@ -105,8 +100,7 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $delete=Category::find($id)->delete();
-        return  redirect()->back();
-
+        $todo=Todo::find($id)->delete();
+        return redirect()->back();
     }
 }

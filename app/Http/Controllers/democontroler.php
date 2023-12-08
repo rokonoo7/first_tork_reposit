@@ -64,7 +64,8 @@ class democontroler extends Controller
       else{
           $url=url('/form/update')."/".$id;
           $title="Update Registration";
-           $data=compact('update_data','url','title');
+          $categories=Category::all(); 
+           $data=compact('update_data','url','title','categories');
            return view('form')->with($data);
 
            
@@ -76,6 +77,7 @@ class democontroler extends Controller
        $laravel->username=$request['username'];
        $laravel->email=$request['email'];
        $laravel->gender=$request['gender'];
+       $laravel->category_id=$request['category_id'];
        $laravel-> save();
        return redirect(url('/form/view'));
 

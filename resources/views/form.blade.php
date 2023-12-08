@@ -37,22 +37,22 @@
           @enderror </span>
         </div>
 
-        <!-- Password -->
+      
         <div class="form-group">
-            <label for="password">Password:</label>
-            <input type="password"  class="form-control" id="password" name="password" >
-            <span class="text-danger"> @error('password')
-                {{$message}}
-            @enderror </span>
-        </div>
-
-        <!-- Confirm Password -->
-        <div class="form-group">
-            <label for="confirm_password">Confirm Password:</label>
-            <input type="password"  class="form-control" id="password_confirmation" name="password_confirmation" >
-            <span class="text-danger"> @error('password_confirmation')
+          <label for="categorySelect">Choose a category:</label>
+          <select name="category_id" class="form-control" id="categorySelect">
+            <option value="">Select a category...</option>
+              @foreach ($categories as $category)
+                  <option value="{{$category->id}}"
+                    @if($category->id==$update_data->category_id) selected @endif
+                    >{{$category->name}}</option>
+              @endforeach
+              
+            <!-- Add more options as needed -->
+          </select>
+          <span class="text-danger"> @error('category_id')
               {{$message}}
-          @enderror </span>
+          @enderror</span>
         </div>
         <div class="form-group">
           <label>Gender:</label>
@@ -85,7 +85,7 @@
             </select>
         </div> --}}
 
-        <button type="submit" class="btn btn-primary">Register</button>
+        <button type="submit" class="btn btn-primary">Update</button>
     </form>
 </div>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
